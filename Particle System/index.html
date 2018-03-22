@@ -1,0 +1,128 @@
+<title> Particle System </title>
+
+<font size="+2">Particle System</font>
+<p> Use w, a, s, and d to apply a force to all the particles.</p>
+<p> Click to add new particles.</p>
+<canvas id="gc" width="700" height="700"></canvas>
+<script>
+
+let xCorrection = 15;
+let yCorrection = 128;
+
+let currCol = 0;
+let inc = 20;
+let keys = [];
+let p = [];
+
+window.onload = function() {
+  canv = document.getElementById("gc");
+  ctx = canv.getContext("2d");
+  canv.width = window.innerWidth - xCorrection;
+  canv.height = window.innerHeight - yCorrection;
+
+  document.addEventListener("keydown", keyPush);
+  document.addEventListener("keyup", keyRelease);
+  document.addEventListener("click", click);
+
+  for (let i = 0; i < 1; i++) {
+    p.push(new particle(10 * i, 10 * i, 1, 1));
+  }
+
+  setInterval(game, 1000 / 30);
+}
+
+function game() {
+  ctx.fillStyle = "#515151";
+  ctx.fillRect(0,0,canv.width,canv.height);
+
+  for (let i = 0; i < p.length; i++) {
+    p[i].update();
+    p[i].show();
+  }
+
+}
+
+function particle(x, y, vx, vy) {
+  this.pos = [x, y];
+  this.vel = [vx, vy];
+  this.acc = [0, 0];
+  this.G = 0.5;
+  this.speed = 4;
+  this.col = currCol;
+  currCol++;
+  if (currCol == 6) { currCol = 0;}
+
+  this.update = function() {
+    this.vel[1] += this.G;
+
+    this.vel[0] += this.acc[0];
+    this.vel[1] += this.acc[1];
+
+    this.acc[0] = 0;
+    this.acc[1] = 0;
+
+    this.pos[0] += this.vel[0];
+    this.pos[1] += this.vel[1];
+
+    //wasd controls
+    if (keys[65]) {
+      this.acc[0] -= this.speed * (this.col + 1) / 6;
+    }
+    if (keys[87]) {
+      this.acc[1] -= this.speed * (this.col + 1) / 6;
+    }
+    if (keys[68]) {
+      this.acc[0] += this.speed * (this.col + 1) / 6;
+    }
+    if (keys[83]) {
+      this.acc[1] += this.speed * (this.col + 1) / 6;
+    }
+
+    //bounds checking
+    if (this.pos[0] > canv.width - 10) {
+      this.pos[0] = canv.width - 10;
+      this.vel[0] = -this.vel[0] * .8;
+    } else if (this.pos[0] < 10) {
+      this.pos[0] = 10;
+      this.vel[0] = -this.vel[0] * .8;
+    }
+    if (this.pos[1] + 10 > canv.height) {
+      this.pos[1] = canv.height - 10;
+      this.vel[1] = -this.vel[1] * .8;
+      this.vel[0] = this.vel[0] * .95;
+    } else if (this.pos[1] < 10) {
+      this.pos[1] = 10;
+      this.vel[1] = -this.vel[1] * .8;
+    }
+
+  }
+
+  this.show = function() {
+    if (this.col == 0) { ctx.fillStyle = "#FF0000"; }
+    if (this.col == 1) { ctx.fillStyle = "#FFB033"; }
+    if (this.col == 2) { ctx.fillStyle = "#FFFC33"; }
+    if (this.col == 3) { ctx.fillStyle = "#38FF33"; }
+    if (this.col == 4) { ctx.fillStyle = "#33DBFF"; }
+    if (this.col == 5) { ctx.fillStyle = "#B133FF"; }
+
+    ctx.beginPath();
+    ctx.arc(this.pos[0], this.pos[1], 10, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+}
+
+function keyPush(evt) {
+  keys[evt.keyCode] = true;
+}
+
+function keyRelease(evt) {
+  keys[evt.keyCode] = false;
+}
+
+function click(evt) {
+  if (evt.button == 0) {
+    p.push(new particle(evt.clientX - xCorrection + 6, evt.clientY - yCorrection + 6, Math.random(-20, 20), 0));
+  }
+}
+
+</script>
