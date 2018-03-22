@@ -1,5 +1,129 @@
 <html>
+
+	<head>
+		<title>Jake Thomas</title>
+		<style>
+			body {
+				background-color: #82FFD9;
+			}
+
+			p {
+				font-size: 24px;
+				text-align: center;
+			}
+
+			h1 {
+				text-align: center;
+				font-size: 64px;
+			}
+
+			img {
+				width: 400px;
+				height: 200px;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				border: solid;
+				border-radius: 25px;
+				border-width: 5px;
+			}
+
+			canvas {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+	</head>
+
 	<body>
-		<p>Hello, World.</p>
+		<div>
+			<h1>Jake Thomas</h1>
+
+			<img src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png">
+		</div>
+		<div>
+			<p>I code in HTML, Java, and JavaScript presently.<br/> Here's some things I coded just for fun.<br/>
+				<br/>
+				<a href="The%20Game%20of%20Life/">The Game of Life</a><br/>
+				<a href="Minesweeper/">Minesweeper</a><br/>
+				<a href="Matrix/">Matrix</a><br/>
+				<a href="Particle%20System/">Particle System</a><br/>
+				<br/>
+				<br/> You can draw in this box!
+				<br/>Left Click: White | Right Click: Black</p>
+
+			<canvas id="gc" width="800" height="800"></canvas>
+
+			<script src="jQuery.js"></script>
+			<script>
+			var canv;
+			var canvRect;
+			var ctx;
+
+			var drawing = false;
+			var p = { x: 0, y: 0 };
+
+			window.onload = function() {
+				canv = document.getElementById("gc");
+				ctx = canv.getContext("2d");
+
+				$('body').on('contextmenu', '#gc', function(e) { return false; });
+
+				document.addEventListener("mousedown", mouseDown);
+				document.addEventListener("mousemove", mouseMove);
+				document.addEventListener("mouseup", mouseUp);
+
+				ctx.fillStyle = "#00FFCC";
+				ctx.fillRect(0, 0, canv.width, canv.height);
+			}
+
+
+
+			function mouseDown(evt) {
+				drawing = true;
+				canvRect = canv.getBoundingClientRect();
+				p.x = evt.clientX - canvRect.x;
+				p.y = evt.clientY - canvRect.y;
+
+				switch(evt.button) {
+					case 0: ctx.strokeStyle = "#FFFFFF";
+									ctx.fillStyle = "#FFFFFF";
+									break;
+					case 2: ctx.strokeStyle = "#000000";
+									ctx.fillStyle = "#000000";
+									break;
+				}
+
+				ctx.beginPath();
+				ctx.arc(evt.clientX - canvRect.x, evt.clientY - canvRect.y, 5, 0, 2 * Math.PI);
+				ctx.fill();
+			}
+
+			function mouseUp(evt) {
+				drawing = false;
+			}
+
+			function mouseMove(evt) {
+				if (drawing) {
+
+					ctx.lineWidth = 11;
+					ctx.beginPath();
+					ctx.moveTo(p.x, p.y);
+					ctx.lineTo(evt.clientX - canvRect.x, evt.clientY - canvRect.y);
+					ctx.stroke();
+
+					//ctx.fillStyle = "#FFFFFF";
+					ctx.beginPath();
+					ctx.arc(evt.clientX - canvRect.x, evt.clientY - canvRect.y, 5, 0, 2 * Math.PI);
+					ctx.fill();
+
+					p.x = evt.clientX - canvRect.x;
+					p.y = evt.clientY - canvRect.y;
+				}
+			}
+			</script>
+		</div>
 	</body>
+
 </html>
