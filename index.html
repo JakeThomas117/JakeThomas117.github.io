@@ -43,7 +43,8 @@
 			<img src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png">
 		</div>
 		<div>
-			<p>I code in HTML, Java, and JavaScript presently.<br/> Here's some things I coded just for fun.<br/>
+			<p>I code in HTML, Java, and JavaScript presently.<br/>
+				Here's some things I coded just for fun.<br/>
 				<br/>
 				<a href="The%20Game%20of%20Life/">The Game of Life</a><br/>
 				<a href="Minesweeper/">Minesweeper</a><br/>
@@ -51,7 +52,8 @@
 				<a href="Particle%20System/">Particle System</a><br/>
 				<a href="Testing/">Testing</a><br/>
 				<br/>
-				<br/> You can draw in this box!
+				<br/>
+				You can draw in this box!
 				<br/>Left Click: White | Right Click: Erase</p>
 
 			<canvas id="gc" width="800" height="800"></canvas>
@@ -63,13 +65,18 @@
 				var ctx;
 
 				var drawing = false;
-				var p = { x: 0, y: 0 };
+				var p = {
+					x: 0,
+					y: 0
+				};
 
-				window.onload = function() {
+				window.onload = function () {
 					canv = document.getElementById("gc");
 					ctx = canv.getContext("2d");
 
-					$('body').on('contextmenu', '#gc', function(e) { return false; });
+					$('body').on('contextmenu', '#gc', function (e) {
+						return false;
+					});
 
 					document.addEventListener("mousedown", mouseDown);
 					document.addEventListener("mousemove", mouseMove);
@@ -79,21 +86,21 @@
 					ctx.fillRect(0, 0, canv.width, canv.height);
 				}
 
-
-
 				function mouseDown(evt) {
 					drawing = true;
 					canvRect = canv.getBoundingClientRect();
 					p.x = evt.clientX - canvRect.x;
 					p.y = evt.clientY - canvRect.y;
 
-					switch(evt.button) {
-						case 0: ctx.strokeStyle = "#FFFFFF";
-										ctx.fillStyle = "#FFFFFF";
-										break;
-						case 2: ctx.strokeStyle = "#00FFCC";
-										ctx.fillStyle = "#00FFCC";
-										break;
+					switch (evt.button) {
+						case 0:
+							ctx.strokeStyle = "#FFFFFF";
+							ctx.fillStyle = "#FFFFFF";
+							break;
+						case 2:
+							ctx.strokeStyle = "#00FFCC";
+							ctx.fillStyle = "#00FFCC";
+							break;
 					}
 
 					ctx.beginPath();
