@@ -28,6 +28,10 @@
 				border-width: 5px;
 			}
 
+			.container > * {
+				display: inline-block;
+			}
+
 			canvas {
 				display: block;
 				margin-left: auto;
@@ -53,8 +57,8 @@
 				<a href="Testing/">Testing</a><br/>
 				<br/>
 				<br/>
-				You can draw in this box!
-				<br/>Left Click: White | Right Click: Erase</p>
+				You can draw in this box!<br/>
+				Left Click: White | Right Click: Erase</p>
 
 			<canvas id="gc" width="800" height="800"></canvas>
 
@@ -130,6 +134,13 @@
 				}
 			</script>
 		</div>
+
+		<div class="container">
+			<h2>Inline Testing</h2>
+			<canvas style="width: 100px; height 100px;"></canvas>
+			<h2>Inline Testing</h2>
+		</div>
+
 	</body>
 
 </html>
