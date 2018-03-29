@@ -29,6 +29,9 @@ img {
 
 #container {
 	display: inline-block;
+	border: solid;
+	border-radius: 25px;
+	border-width: 5px;
 }
 
 canvas {
