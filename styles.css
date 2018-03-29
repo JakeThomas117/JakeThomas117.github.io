@@ -1,7 +1,5 @@
 body {
 	background-color: #82FFD9;
-	width: 90%;
-	margin: auto;
 }
 
 p {
@@ -12,10 +10,7 @@ p {
 h1 {
 	text-align: center;
 	font-size: 64px;
-	font-family: cursive, Times;
-	font-style: italic;
-	margin-bottom: 30px;
-	margin-top: 40px;
+	font-family: cursive;
 }
 
 img {
@@ -31,7 +26,6 @@ img {
 
 .container > * {
 	display: inline-block;
-	width: 40%;
 }
 
 canvas {
