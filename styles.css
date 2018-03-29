@@ -10,7 +10,7 @@ p {
 h1 {
 	text-align: center;
 	font-size: 64px;
-	font-family: cursive;
+	font-family: cursive, Times;
 }
 
 img {
