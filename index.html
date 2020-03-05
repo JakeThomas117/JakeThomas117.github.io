@@ -34,6 +34,7 @@
 				var ctx;
 
 				var drawing = false;
+				var rad = 5;
 				var p = {
 					x: 0,
 					y: 0
@@ -65,10 +66,12 @@
 						case 0:
 							ctx.strokeStyle = "#FFFFFF";
 							ctx.fillStyle = "#FFFFFF";
+							rad = 5;
 							break;
 						case 2:
 							ctx.strokeStyle = "#00FFCC";
 							ctx.fillStyle = "#00FFCC";
+							rad = 10;
 							break;
 					}
 
@@ -83,14 +86,14 @@
 
 				function mouseMove(evt) {
 					if (drawing) {
-						ctx.lineWidth = 11;
+						ctx.lineWidth = rad * 2 + 1;
 						ctx.beginPath();
 						ctx.moveTo(p.x, p.y);
 						ctx.lineTo(evt.clientX - canvRect.x, evt.clientY - canvRect.y);
 						ctx.stroke();
 
 						ctx.beginPath();
-						ctx.arc(evt.clientX - canvRect.x, evt.clientY - canvRect.y, 5, 0, 2 * Math.PI);
+						ctx.arc(evt.clientX - canvRect.x, evt.clientY - canvRect.y, rad, 0, 2 * Math.PI);
 						ctx.fill();
 
 						p.x = evt.clientX - canvRect.x;
